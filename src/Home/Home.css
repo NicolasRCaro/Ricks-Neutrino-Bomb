@@ -1,0 +1,144 @@
+.home-container {
+  background-color: #0f0f0f;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #e0e0e0;
+}
+
+/* Filtros */
+.filtros {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filtros button {
+  background-color: #1e1e1e;
+  color: #aaa;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.filtros button:hover {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.filtros button.activo {
+  background-color: rgb(254, 217, 37);
+  color: #000000;
+  border-color: rgb(254, 217, 37);
+}
+
+/* Buscador */
+.buscador {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 16px;
+  margin-bottom: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 20px;
+  color: #e0e0e0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.buscador:focus {
+  border-color: rgb(254, 217, 37);
+}
+
+.buscador::placeholder {
+  color: #555;
+}
+
+/* Sin resultados */
+.sin-resultados {
+  color: #666;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+/* Grid */
+.personajes-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+/* Card */
+.personaje-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.personaje-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgb(254, 217, 37);
+}
+
+.personaje-imagen {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.personaje-info {
+  padding: 10px 12px 14px;
+}
+
+.personaje-nombre {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.personaje-especie {
+  font-size: 12px;
+  color: #888;
+  margin: 0 0 8px;
+}
+
+.personaje-status {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #111;
+}
+
+/* Responsivo */
+@media (max-width: 1200px) {
+  .personajes-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .personajes-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .personajes-grid { grid-template-columns: repeat(2, 1fr); }
+}
