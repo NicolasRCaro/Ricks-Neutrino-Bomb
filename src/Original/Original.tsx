@@ -7,14 +7,29 @@ interface Personaje {
   image: string
 }
 
-function getRandomIds(exclude: number, total = 826, count = 3): number[] {
-  const ids = new Set<number>()
-  while (ids.size < count) {
-    const id = Math.floor(Math.random() * total) + 1
-    if (id !== exclude) ids.add(id)
-  }
-  return Array.from(ids)
-}
+// Pool fijo — sin fetch, sin CORS
+const PERSONAJES_POOL: Personaje[] = [
+  { id: 1,  name: "Rick Sanchez",              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg" },
+  { id: 2,  name: "Morty Smith",               image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg" },
+  { id: 3,  name: "Summer Smith",              image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg" },
+  { id: 4,  name: "Beth Smith",                image: "https://rickandmortyapi.com/api/character/avatar/4.jpeg" },
+  { id: 5,  name: "Jerry Smith",               image: "https://rickandmortyapi.com/api/character/avatar/5.jpeg" },
+  { id: 6,  name: "Abadango Cluster Princess", image: "https://rickandmortyapi.com/api/character/avatar/6.jpeg" },
+  { id: 7,  name: "Abradolf Lincler",          image: "https://rickandmortyapi.com/api/character/avatar/7.jpeg" },
+  { id: 8,  name: "Adjudicator Rick",          image: "https://rickandmortyapi.com/api/character/avatar/8.jpeg" },
+  { id: 9,  name: "Agency Director",           image: "https://rickandmortyapi.com/api/character/avatar/9.jpeg" },
+  { id: 10, name: "Alan Rails",                image: "https://rickandmortyapi.com/api/character/avatar/10.jpeg" },
+  { id: 11, name: "Albert Einstein",           image: "https://rickandmortyapi.com/api/character/avatar/11.jpeg" },
+  { id: 12, name: "Alexander",                 image: "https://rickandmortyapi.com/api/character/avatar/12.jpeg" },
+  { id: 13, name: "Alien Googah",              image: "https://rickandmortyapi.com/api/character/avatar/13.jpeg" },
+  { id: 14, name: "Alien Morty",               image: "https://rickandmortyapi.com/api/character/avatar/14.jpeg" },
+  { id: 15, name: "Alien Rick",                image: "https://rickandmortyapi.com/api/character/avatar/15.jpeg" },
+  { id: 16, name: "Amish Cyborg",              image: "https://rickandmortyapi.com/api/character/avatar/16.jpeg" },
+  { id: 17, name: "Annie",                     image: "https://rickandmortyapi.com/api/character/avatar/17.jpeg" },
+  { id: 18, name: "Antenna Morty",             image: "https://rickandmortyapi.com/api/character/avatar/18.jpeg" },
+  { id: 19, name: "Antenna Rick",              image: "https://rickandmortyapi.com/api/character/avatar/19.jpeg" },
+  { id: 20, name: "Ants in my Eyes Johnson",   image: "https://rickandmortyapi.com/api/character/avatar/20.jpeg" },
+]
 
 function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5)
@@ -32,31 +47,21 @@ function Original() {
   const [puntaje, setPuntaje] = useState(0)
   const [explota, setExplota] = useState(false)
 
-  const cargarPersonaje = useCallback(async () => {
-    setEstado("cargando")
+  // Sin fetch — trabaja solo con el pool en memoria
+  const cargarPersonaje = useCallback(() => {
     setSeleccion(null)
     setCorrecto(null)
-    try {
-      const idCorrecto = Math.floor(Math.random() * 826) + 1
-      const idsWrong = getRandomIds(idCorrecto)
-      const todosIds = [idCorrecto, ...idsWrong]
 
-      const res = await fetch(`https://rickandmortyapi.com/api/character/${todosIds.join(",")}`)
-      const data = await res.json()
-      const personajes: Personaje[] = (Array.isArray(data) ? data : [data]).map((p: Personaje) => ({
-        id: p.id, name: p.name, image: p.image
-      }))
+    const mezclados = shuffle(PERSONAJES_POOL)
+    const personajeCorrecto = mezclados[0]
+    const opcionesFinales = shuffle(mezclados.slice(0, 4))
 
-      const correcto = personajes.find(p => p.id === idCorrecto)!
-      setPersonaje(correcto)
-      setOpciones(shuffle(personajes))
-      setEstado("jugando")
-    } catch (e) {
-      console.error(e)
-    }
+    setPersonaje(personajeCorrecto)
+    setOpciones(opcionesFinales)
+    setEstado("jugando")
   }, [])
 
-  // Carga inicial
+  // Carga inicial — sin fetch
   useEffect(() => {
     cargarPersonaje()
   }, [cargarPersonaje])
@@ -94,7 +99,6 @@ function Original() {
   const reiniciar = () => {
     setPuntaje(0)
     setTiempo(60)
-    setEstado("cargando")
     cargarPersonaje()
   }
 

@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router";
-import "./App.css"
 import Home from "./Home/Home"
 import Original from "./Original/Original"
 import Favoritos from "./Favoritos/Favoritos"
 import Informativa from "./Informativa/Informativa"
 import Usuario from "./Usuario/Usuario"
 import Personaje from "./Personaje/Personaje"
+import "./App.css"
 
  
 function App() {
