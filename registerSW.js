@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/Ricks-Neutrino-Bomb/sw.js', { scope: '/Ricks-Neutrino-Bomb/' })})}
