@@ -1,0 +1,49 @@
+.informativo {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  background-color: #0f0f0f;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.informativo h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: rgb(254, 217, 37);
+  margin-bottom: 8px;
+}
+
+.informativo h2 {
+  font-size: 16px;
+  font-weight: 400;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+.informativo .logo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgb(254, 217, 37);
+  margin-bottom: 24px;
+}
+
+.informativo #desc {
+  font-size: 15px;
+  color: #ccc;
+  max-width: 500px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.informativo p:last-child {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.8;
+}

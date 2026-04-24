@@ -1,0 +1,82 @@
+.personaje-detalle {
+  min-height: calc(100vh - 56px);
+  background-color: #0f0f0f;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.personaje-detalle-imagen {
+  width: 340px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 3px solid rgb(254, 217, 37);
+  flex-shrink: 0;
+  margin-right: 48px;
+  margin-left: 80px;
+}
+
+.personaje-info-detalle {
+  max-width: 420px;
+}
+
+.personaje-info-detalle h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.personaje-info-detalle h1 button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.personaje-info-detalle h2 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgb(254, 217, 37);
+  margin: 20px 0 8px;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 6px;
+}
+
+.personaje-info-detalle p {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.personaje-info-detalle strong {
+  color: #fff;
+  margin-right: 6px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .personaje-detalle {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .personaje-detalle-imagen {
+    margin: 0 0 24px 0;
+    width: 260px;
+    height: 260px;
+  }
+}

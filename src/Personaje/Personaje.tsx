@@ -58,7 +58,7 @@ function Personaje() {
   return (
     <div className="personaje-detalle">
       <img src={data.image} alt={data.name} className="personaje-detalle-imagen" />
-
+      <div className="personaje-info-detalle">
       <h1>
         {data.name}
         <button onClick={toggleFavorite}>
@@ -78,6 +78,7 @@ function Personaje() {
 
       <h2>Episodios</h2>
       <p><strong>Aparece en:</strong> {data.episode.length} episodios</p>
+      </div>
     </div>
   )
 }

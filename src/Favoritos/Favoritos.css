@@ -1,0 +1,48 @@
+.favoritos-container {
+  min-height: calc(100vh - 56px);
+  background-color: #0f0f0f;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 40px 24px;
+}
+
+.favoritos-container h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: rgb(254, 217, 37);
+  margin-bottom: 24px;
+}
+
+.favoritos-container p {
+  color: #666;
+  font-size: 15px;
+}
+
+.favoritos-container ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.favoritos-container li {
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.favoritos-container li:hover {
+  border-color: rgb(254, 217, 37);
+  transform: translateX(4px);
+}
+
+.favoritos-container li a {
+  display: block;
+  padding: 14px 20px;
+  text-decoration: none;
+  color: #e0e0e0;
+  font-size: 15px;
+  font-weight: 500;
+}

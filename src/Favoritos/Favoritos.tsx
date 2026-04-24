@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import "./Favoritos.css"
 
 function Favoritos() {
   const [favorites, setFavorites] = useState<string[]>([])
@@ -10,7 +11,7 @@ function Favoritos() {
   }, [])
 
   return (
-    <div>
+    <div className="favoritos-container">
       <h1>Favoritos</h1>
       {favorites.length === 0 ? (
         <p>No tienes personajes favoritos</p>
