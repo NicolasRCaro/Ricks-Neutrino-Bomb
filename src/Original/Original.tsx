@@ -7,30 +7,6 @@ interface Personaje {
   image: string
 }
 
-// Pool fijo — sin fetch, sin CORS
-const PERSONAJES_POOL: Personaje[] = [
-  { id: 1,  name: "Rick Sanchez",              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg" },
-  { id: 2,  name: "Morty Smith",               image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg" },
-  { id: 3,  name: "Summer Smith",              image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg" },
-  { id: 4,  name: "Beth Smith",                image: "https://rickandmortyapi.com/api/character/avatar/4.jpeg" },
-  { id: 5,  name: "Jerry Smith",               image: "https://rickandmortyapi.com/api/character/avatar/5.jpeg" },
-  { id: 6,  name: "Abadango Cluster Princess", image: "https://rickandmortyapi.com/api/character/avatar/6.jpeg" },
-  { id: 7,  name: "Abradolf Lincler",          image: "https://rickandmortyapi.com/api/character/avatar/7.jpeg" },
-  { id: 8,  name: "Adjudicator Rick",          image: "https://rickandmortyapi.com/api/character/avatar/8.jpeg" },
-  { id: 9,  name: "Agency Director",           image: "https://rickandmortyapi.com/api/character/avatar/9.jpeg" },
-  { id: 10, name: "Alan Rails",                image: "https://rickandmortyapi.com/api/character/avatar/10.jpeg" },
-  { id: 11, name: "Albert Einstein",           image: "https://rickandmortyapi.com/api/character/avatar/11.jpeg" },
-  { id: 12, name: "Alexander",                 image: "https://rickandmortyapi.com/api/character/avatar/12.jpeg" },
-  { id: 13, name: "Alien Googah",              image: "https://rickandmortyapi.com/api/character/avatar/13.jpeg" },
-  { id: 14, name: "Alien Morty",               image: "https://rickandmortyapi.com/api/character/avatar/14.jpeg" },
-  { id: 15, name: "Alien Rick",                image: "https://rickandmortyapi.com/api/character/avatar/15.jpeg" },
-  { id: 16, name: "Amish Cyborg",              image: "https://rickandmortyapi.com/api/character/avatar/16.jpeg" },
-  { id: 17, name: "Annie",                     image: "https://rickandmortyapi.com/api/character/avatar/17.jpeg" },
-  { id: 18, name: "Antenna Morty",             image: "https://rickandmortyapi.com/api/character/avatar/18.jpeg" },
-  { id: 19, name: "Antenna Rick",              image: "https://rickandmortyapi.com/api/character/avatar/19.jpeg" },
-  { id: 20, name: "Ants in my Eyes Johnson",   image: "https://rickandmortyapi.com/api/character/avatar/20.jpeg" },
-]
-
 function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5)
 }
@@ -38,6 +14,7 @@ function shuffle<T>(arr: T[]): T[] {
 type Estado = "jugando" | "perdiste" | "cargando"
 
 function Original() {
+  const [Conteo, setConteo] = useState<Personaje[]>([])
   const [personaje, setPersonaje] = useState<Personaje | null>(null)
   const [opciones, setOpciones] = useState<Personaje[]>([])
   const [tiempo, setTiempo] = useState(60)
@@ -47,24 +24,45 @@ function Original() {
   const [puntaje, setPuntaje] = useState(0)
   const [explota, setExplota] = useState(false)
 
-  // Sin fetch — trabaja solo con el pool en memoria
+  // Cargar todos los personajes desde GitHub al montar
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const peticiones = Array.from({ length: 42 }, (_, i) =>
+          fetch(`https://raw.githubusercontent.com/NicolasRCaro/RicksAPI/refs/heads/main/Lista${i + 1}.json`)
+            .then(r => r.json())
+        )
+        const paginas = await Promise.all(peticiones)
+        const todos: Personaje[] = paginas.flatMap(p =>
+          p.results.map((r: any) => ({ id: r.id, name: r.name, image: r.image }))
+        )
+        setConteo(todos)
+      } catch (error) {
+        console.error('Error cargando Conteo:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
+
   const cargarPersonaje = useCallback(() => {
+    if (Conteo.length === 0) return
     setSeleccion(null)
     setCorrecto(null)
 
-    const mezclados = shuffle(PERSONAJES_POOL)
+    const mezclados = shuffle(Conteo)
     const personajeCorrecto = mezclados[0]
-    const opcionesFinales = shuffle(mezclados.slice(0, 4))
+    const opcionesFinales = shuffle([personajeCorrecto, ...mezclados.slice(1, 4)])
 
     setPersonaje(personajeCorrecto)
     setOpciones(opcionesFinales)
     setEstado("jugando")
-  }, [])
+  }, [Conteo])
 
-  // Carga inicial — sin fetch
+  // Iniciar juego cuando el Conteo esté listo
   useEffect(() => {
-    cargarPersonaje()
-  }, [cargarPersonaje])
+    if (Conteo.length > 0) cargarPersonaje()
+  }, [Conteo, cargarPersonaje])
 
   // Temporizador
   useEffect(() => {

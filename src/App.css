@@ -46,3 +46,19 @@ body {
   background-color: #00b5cc;
   color: #fff;
 }
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .c-menu {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .c-menu a {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+}

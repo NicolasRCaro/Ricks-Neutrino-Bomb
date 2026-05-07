@@ -21,19 +21,14 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // primer llamado del api con la pagina 1 ya pedida, se determina cuantas paginas tiene el api
-        const statusParam = filtro === 'todos' ? '' : `?status=${filtro}`
-        const primera = await fetch(`https://rickandmortyapi.com/api/character${statusParam}`)
-        const data = await primera.json()
-        // cuando se determina cuantas paginas tiene el api se llaman las siguientes sin llamar la primera
-        const peticiones = Array.from({ length: data.info.pages - 1 }, (_, i) =>
-          fetch(`https://rickandmortyapi.com/api/character${statusParam}${statusParam ? '&' : '?'}page=${i + 2}`)
+        const peticiones = Array.from({ length: 42 }, (_, i) =>
+          fetch(`https://raw.githubusercontent.com/NicolasRCaro/RicksAPI/refs/heads/main/Lista${i + 1}.json`)
             .then(r => r.json())
         )
-        // await para renderizar las paginas llamadas y traerlas en orden
         const paginas = await Promise.all(peticiones)
-        // une la pagina de la primera llamada con el resto de paginas en una sola lista
-        const todos = [data.results, ...paginas.map(p => p.results)].flat()
+        const todos: Personaje[] = paginas.flatMap(p =>
+          p.results.map((r: any) => ({ id: r.id, name: r.name, status: r.status, species: r.species, image: r.image }))
+        )
         setPersonajes(todos)
       } catch (error) {
         console.error('Error cargando personajes:', error)
@@ -41,11 +36,11 @@ function Home() {
     }
 
     fetchData()
-  }, [filtro])
+  }, [])
 
-  const personajesFiltrados = personajes.filter((p) =>
-    busqueda.length < 3 ? true : p.name.toLowerCase().includes(busqueda.toLowerCase())
-  )
+  const personajesFiltrados = personajes
+    .filter(p => filtro === 'todos' ? true : p.status.toLowerCase() === filtro)
+    .filter(p => busqueda.length < 3 ? true : p.name.toLowerCase().includes(busqueda.toLowerCase()))
 
   const statusColor = (status: string) => {
     if (status === 'Alive') return '#4ade80'
