@@ -1,0 +1,146 @@
+/* =========================
+   Contenedor principal
+   ========================= */
+
+.usuario-container {
+  background-color: #0f0f0f;
+  min-height: 100vh;
+  padding: 40px 24px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================
+   Título
+   ========================= */
+
+.usuario-container h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: rgb(254, 217, 37);
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+
+.usuario-container h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #aaa;
+  margin: 24px 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* =========================
+   Logo
+   ========================= */
+
+.logo-usuario {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 2px solid rgb(254, 217, 37);
+  margin-bottom: 20px;
+  box-shadow: 0 0 16px rgba(254, 217, 37, 0.3);
+}
+
+/* =========================
+   Inputs
+   ========================= */
+
+.usuario-container input {
+  width: 100%;
+  max-width: 380px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 20px;
+  color: #e0e0e0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  display: block;
+}
+
+.usuario-container input:focus {
+  border-color: rgb(254, 217, 37);
+}
+
+.usuario-container input::placeholder {
+  color: #555;
+}
+
+/* =========================
+   Botones
+   ========================= */
+
+.usuario-container button {
+  width: 100%;
+  max-width: 380px;
+  padding: 10px 18px;
+  margin-bottom: 10px;
+  background-color: rgb(254, 217, 37);
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.usuario-container button:hover {
+  background-color: #e6c41f;
+  box-shadow: 0 4px 16px rgba(254, 217, 37, 0.35);
+  transform: translateY(-2px);
+}
+
+.usuario-container button:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   Info de sesión (email/nombre)
+   ========================= */
+
+.usuario-container p {
+  color: #aaa;
+  font-size: 14px;
+  margin-bottom: 16px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 8px 20px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Responsivo
+   ========================= */
+
+@media (max-width: 480px) {
+  .usuario-container h1 {
+    font-size: 24px;
+  }
+
+  .usuario-container input,
+  .usuario-container button,
+  .usuario-container p {
+    max-width: 100%;
+  }
+
+  .logo-usuario {
+    width: 70px;
+    height: 70px;
+  }
+}
