@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 React
-import "Usuario.css"
+import "<div className="" />Usuario.css"
 
 import {
   createUserWithEmailAndPassword,
